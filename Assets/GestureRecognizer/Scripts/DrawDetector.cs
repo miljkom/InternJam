@@ -157,9 +157,15 @@ namespace GestureRecognizer {
 
 				if (result.gesture != null && result.score.score >= scoreToAccept) {
 					OnRecognize.Invoke (result);
-					if (result.gesture.id.Equals("up"))
-						Elements.elementsA++;
-					
+					if (result.gesture.id == RandomGesture.instance.currentGesture.id)
+					{
+						Debug.Log("BRAVO POGODIO SI");
+						if()
+					}
+					else
+					{
+						Debug.Log("OMASIO SI");
+					}
 					if (clearNotRecognizedLines) {
 						data = sizedData;
 						UpdateLines ();

@@ -88,8 +88,7 @@ namespace GestureRecognizer
         public int numberOfThreads = 1;
 
         public List<GesturePattern> patterns;
-
-        public static GesturePattern rPattern;
+        
         
 
         public RecognitionResult Recognize(GestureData data, bool normalizeScale = true)
