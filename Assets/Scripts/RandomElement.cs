@@ -52,20 +52,21 @@ public class RandomElement : MonoBehaviour
 
     IEnumerator changeImage()
     {
-        if (timeToChange)
-        {
-            Destroy(_transform.GetChild(0).GetChild(0));
-            placeList[0] = Instantiate(imageList[currentIndex2], new Vector3(0, 0, 0), Quaternion.identity,
-                _transform.GetChild(0));
-            Destroy(_transform.GetChild(0).GetChild(1));
-            placeList[0] = Instantiate(imageList[currentIndex3], new Vector3(0, 0, 0), Quaternion.identity,
-                _transform.GetChild(1));
-            Destroy(_transform.GetChild(0).GetChild(2));
-            currentIndex3 = Random.Range(0, imageList.Count);
-            placeList[0] = Instantiate(imageList[currentIndex3], new Vector3(0, 0, 0), Quaternion.identity,
-                _transform.GetChild(2));
-        }
-
+        currentIndex1 = currentIndex2;
+        placeList[0] = Instantiate(imageList[currentIndex1], _transform.GetChild(0).position, Quaternion.identity,
+            _transform.GetChild(0));
+        currentIndex2 = currentIndex3;
+        placeList[0] = Instantiate(imageList[currentIndex2], _transform.GetChild(1).position, Quaternion.identity,
+            _transform.GetChild(1));
+        currentIndex3 = Random.Range(0, imageList.Count);
+        placeList[0] = Instantiate(imageList[currentIndex3], _transform.GetChild(2).position, Quaternion.identity,
+            _transform.GetChild(2));
+        if(_transform.GetChild(0).childCount > 1)
+            Destroy(_transform.GetChild(0).GetChild(0).gameObject);
+        if(_transform.GetChild(1).childCount > 1)
+            Destroy(_transform.GetChild(1).GetChild(0).gameObject);
+        if(_transform.GetChild(2).childCount > 1)
+            Destroy(_transform.GetChild(2).GetChild(0).gameObject);
         yield return new WaitForSeconds(secondsToChangeImage);
         timeToChange = true;
     }
