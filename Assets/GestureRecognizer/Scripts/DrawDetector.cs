@@ -160,7 +160,6 @@ namespace GestureRecognizer {
 					if (result.gesture.id == RandomGesture.instance.currentGesture.id)
 					{
 						Debug.Log("BRAVO POGODIO SI");
-						if()
 					}
 					else
 					{

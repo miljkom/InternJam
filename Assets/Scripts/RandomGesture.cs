@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 public class RandomGesture : MonoBehaviour
 {
-    public float secondsToChangeGesture = 2f;
+    public float secondsToChangeGesture = 4f;
     public List<GesturePattern> gesturePatterns;
     public GesturePattern currentGesture;
     private int currentIndex;
@@ -47,17 +47,16 @@ public class RandomGesture : MonoBehaviour
         currentGesture = randomPattern();
         Debug.Log(currentGesture.id);
         if (currentGesture.id == "up")
-            Instantiate(prefabGesture[currentIndex], new Vector3(550, 1496, 0), Quaternion.identity,parentImage);
+            Instantiate(prefabGesture[currentIndex], parentImage.position, Quaternion.identity,parentImage);
         if (currentGesture.id == "w")
-            Instantiate(prefabGesture[currentIndex], new Vector3(550, 1496, 0), Quaternion.identity,parentImage);
+            Instantiate(prefabGesture[currentIndex], parentImage.position, Quaternion.identity,parentImage);
         if (currentGesture.id == "Circle")
-            Instantiate(prefabGesture[currentIndex], new Vector3(550, 1496, 0), Quaternion.identity,parentImage);
+            Instantiate(prefabGesture[currentIndex], parentImage.position, Quaternion.identity,parentImage);
         if (currentGesture.id == "Square")
-            Instantiate(prefabGesture[currentIndex], new Vector3(550, 1496, 0), Quaternion.identity,parentImage);
+            Instantiate(prefabGesture[currentIndex], parentImage.position, Quaternion.identity,parentImage);
 
         yield return new WaitForSeconds(secondsToChangeGesture);
         timeToChange = true;
-        /*Destroy(gameObject.transform);*/
     }
 
     public GesturePattern randomPattern()
