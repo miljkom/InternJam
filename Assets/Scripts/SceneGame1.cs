@@ -18,10 +18,10 @@ public class SceneGame1 : MonoBehaviour
 
     public void CheckScore()
     {
-        textA.text = Elements.elementsA.ToString() + "/3";
-        textB.text = Elements.elementsB.ToString() + "/3";
-        textC.text = Elements.elementsC.ToString() + "/3";
-        textD.text = Elements.elementsD.ToString() + "/3";
+        textA.text = Elements.instance.elements[0].ToString() + "/3";
+        textB.text = Elements.instance.elements[1].ToString() + "/3";
+        textC.text = Elements.instance.elements[2].ToString() + "/3";
+        textD.text = Elements.instance.elements[3].ToString() + "/3";
     }
 
     IEnumerator CheckScoreCourutine()

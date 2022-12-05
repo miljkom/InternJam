@@ -5,11 +5,8 @@ using UnityEngine;
 
 public class Elements : MonoBehaviour
 {
-    
-    public static int elementsA = 0;
-    public static int elementsB = 0;
-    public static int elementsC = 0;
-    public static int elementsD = 0;
+
+    public List<int> elements;
 
     public static Elements instance;
 
@@ -18,4 +15,5 @@ public class Elements : MonoBehaviour
         if (instance == null)
             instance = this;
     }
+    
 }

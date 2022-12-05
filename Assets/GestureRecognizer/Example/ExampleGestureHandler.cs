@@ -33,11 +33,27 @@ public class ExampleGestureHandler : MonoBehaviour
 		ShowAll();
 		if (result != RecognitionResult.Empty)
 		{
-			textResult.text = "Good job";
+			if (result.gesture.id == RandomGesture.instance.currentGesture.id)
+			{
+				if (RandomElement.instance.currentIndex2 == 4)
+				{
+					RandomElement.instance.tntBomb();
+					textResult.text = "Boom u lost progress";
+				}
+				else
+				{
+					Elements.instance.elements[RandomElement.instance.currentIndex2]++;
+					textResult.text = "Good job!";
+				}
+			}
+			else
+			{
+				textResult.text = "Try again?";
+			}
 		}
 		else
 		{
-			textResult.text = "?";
+			textResult.text = "Try again?";
 		}
 	}
 }

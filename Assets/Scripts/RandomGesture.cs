@@ -13,7 +13,8 @@ public class RandomGesture : MonoBehaviour
     public List<GesturePattern> gesturePatterns;
     public GesturePattern currentGesture;
     private int currentIndex;
-    private bool timeToChange = false;
+    [HideInInspector]
+    public bool timeToChange = true;
     public List<GameObject> prefabGesture;
     [SerializeField] public Transform parentImage;
     public static RandomGesture instance;
@@ -23,13 +24,9 @@ public class RandomGesture : MonoBehaviour
         if (instance == null)
             instance = this;
         _transform = transform;
-    }
-
-    private void Start()
-    {
         timeToChange = true;
-        currentGesture = randomPattern();
     }
+    
 
     private void Update()
     {

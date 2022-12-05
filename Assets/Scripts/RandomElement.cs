@@ -10,7 +10,7 @@ public class RandomElement : MonoBehaviour
 {
     public float secondsToChangeImage = 4f;
     private int currentIndex1;
-    private int currentIndex2;
+    public int currentIndex2;
     private int currentIndex3;
     private bool timeToChange = false;
     public List<GameObject> placeList;
@@ -40,7 +40,7 @@ public class RandomElement : MonoBehaviour
         placeList[2] = Instantiate(imageList[currentIndex3], _transform.GetChild(2).position, Quaternion.identity,
             _transform.GetChild(2));
     }
-
+    
     private void Update()
     {
         if (timeToChange)
@@ -56,10 +56,10 @@ public class RandomElement : MonoBehaviour
         placeList[0] = Instantiate(imageList[currentIndex1], _transform.GetChild(0).position, Quaternion.identity,
             _transform.GetChild(0));
         currentIndex2 = currentIndex3;
-        placeList[0] = Instantiate(imageList[currentIndex2], _transform.GetChild(1).position, Quaternion.identity,
+        placeList[1] = Instantiate(imageList[currentIndex2], _transform.GetChild(1).position, Quaternion.identity,
             _transform.GetChild(1));
         currentIndex3 = Random.Range(0, imageList.Count);
-        placeList[0] = Instantiate(imageList[currentIndex3], _transform.GetChild(2).position, Quaternion.identity,
+        placeList[2] = Instantiate(imageList[currentIndex3], _transform.GetChild(2).position, Quaternion.identity,
             _transform.GetChild(2));
         if(_transform.GetChild(0).childCount > 1)
             Destroy(_transform.GetChild(0).GetChild(0).gameObject);
@@ -69,5 +69,16 @@ public class RandomElement : MonoBehaviour
             Destroy(_transform.GetChild(2).GetChild(0).gameObject);
         yield return new WaitForSeconds(secondsToChangeImage);
         timeToChange = true;
+    }
+
+    public void tntBomb()
+    {
+        if (currentIndex2 == 4)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                Elements.instance.elements[i] = 0;
+            }
+        }
     }
 }
