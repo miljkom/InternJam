@@ -21,16 +21,11 @@ namespace GestureRecognizer {
 
 		[Range(0f,1f)]
 		public float scoreToAccept = 0.8f;
+		
+		private int minLines = 1;
+		private int maxLines = 1;
 
-		[Range(1,10)]
-		public int minLines = 1;
-		public int MinLines { set { minLines = Mathf.Clamp (value, 1, 10); } }
-
-		[Range(1,10)]
-		public int maxLines = 2;
-		public int MaxLines { set { maxLines = Mathf.Clamp (value, 1, 10); } }
-
-		public enum RemoveStrategy { RemoveOld, ClearAll }
+		public enum RemoveStrategy { RemoveOld}
 		public RemoveStrategy removeStrategy;
 
 		public bool clearNotRecognizedLines;
@@ -82,9 +77,6 @@ namespace GestureRecognizer {
 
 		Vector2 FixedPosition(Vector2 position){
 			return position;
-			//var local = rectTransform.InverseTransformPoint (position);
-			//var normalized = Rect.PointToNormalized (rectTransform.rect, local);
-			//return normalized;
 		}
 
 		public void ClearLines(){
@@ -101,10 +93,7 @@ namespace GestureRecognizer {
 			if (data.lines.Count >= maxLines) {
 				switch (removeStrategy) {
 				case RemoveStrategy.RemoveOld:
-					data.lines.RemoveAt (0);
-					break;
-				case RemoveStrategy.ClearAll:
-					data.lines.Clear ();
+					data.lines.Clear();
 					break;
 				}
 			}
@@ -168,6 +157,9 @@ namespace GestureRecognizer {
 
 				if (result.gesture != null && result.score.score >= scoreToAccept) {
 					OnRecognize.Invoke (result);
+					if (result.gesture.id.Equals("up"))
+						Elements.elementsA++;
+					
 					if (clearNotRecognizedLines) {
 						data = sizedData;
 						UpdateLines ();

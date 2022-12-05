@@ -89,9 +89,11 @@ namespace GestureRecognizer
 
         public List<GesturePattern> patterns;
 
+        public static GesturePattern rPattern;
+        
+
         public RecognitionResult Recognize(GestureData data, bool normalizeScale = true)
         {
-
             var timer = new System.Diagnostics.Stopwatch();
             timer.Start();
 

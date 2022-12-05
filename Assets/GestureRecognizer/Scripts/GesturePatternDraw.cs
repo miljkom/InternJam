@@ -9,8 +9,8 @@ namespace GestureRecognizer {
 	/// Renderer to automatic draw gesture on Canvas
 	/// </summary>
 	public class GesturePatternDraw : UILineRenderer {
-
-		public GesturePattern pattern;
+		
+		private GesturePattern pattern;
 
 		public float endingSize = 0;
 
@@ -26,8 +26,10 @@ namespace GestureRecognizer {
 			base.OnPopulateMesh (vh);
 		}
 
-		public void DrawPattern(){
-
+		public void DrawPattern()
+		{
+			
+			pattern = Recognizer.rPattern;
 			if (pattern == null || pattern.gesture == null) {
 				return;
 			}
