@@ -35,6 +35,8 @@ public class RandomGesture : MonoBehaviour
             timeToChange = false;
             StartCoroutine("ChangeGesture");
         }
+        if(SceneGame1.endGame)
+            StopCoroutine("ChangeGesture");
     }
 
     IEnumerator ChangeGesture()

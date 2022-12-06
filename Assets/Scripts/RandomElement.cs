@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -48,6 +49,8 @@ public class RandomElement : MonoBehaviour
             timeToChange = false;
             StartCoroutine("changeImage");
         }
+        if(SceneGame1.endGame)
+            StopCoroutine("changeImage");
     }
 
     IEnumerator changeImage()
