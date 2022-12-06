@@ -8,8 +8,6 @@ using UnityEngine.UI;
 public class SceneStart : MonoBehaviour
 {
     public Button startButtonMG1;
-    public Button startButtonMG2;
-    public Button startButtonMG3;
 
     private void Awake()
     {
