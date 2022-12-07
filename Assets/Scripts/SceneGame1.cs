@@ -9,18 +9,37 @@ using UnityEngine.SceneManagement;
 
 public class SceneGame1 : MonoBehaviour
 {
+    public Transform[] textPlaces;
     public TextMeshProUGUI textA, textB, textC, textD;
     public static bool endGame = false;
+    public GameObject endScreen;
+    public bool endGameScreen = false;
+    public Transform placeHolder;
+    
 
     private void Update()
     {
-        if(!endGame)
-            StartCoroutine("CheckScoreCourutine");
-        else
+        if (endGame)
         {
             StopCoroutine("CheckScoreCourutine");
-            SceneManager.LoadScene("Scenes/SceneStart", LoadSceneMode.Single);
+            EndGame();
         }
+        if(endGameScreen)
+            if (Input.anyKey)
+                SceneManager.LoadScene("Scenes/SceneStart",LoadSceneMode.Single);
+    }
+
+    private void Start()
+    {
+        StartCoroutine("CheckScoreCourutine");
+    }
+
+    private void EndGame()
+    {
+        GameObject endScreen = Instantiate<GameObject>(this.endScreen,
+            Vector2.zero, Quaternion.identity, placeHolder);
+        endScreen.transform.localPosition = Vector2.zero;
+        endGameScreen = true;
     }
 
     public void CheckScore()

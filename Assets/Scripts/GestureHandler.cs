@@ -1,16 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using GestureRecognizer;
 using System.Linq;
+using Random = UnityEngine.Random;
 
-public class ExampleGestureHandler : MonoBehaviour
+public class GestureHandler : MonoBehaviour
 {
 
 	public Text textResult;
 
 	public Transform referenceRoot;
+	public Transform parentInstantiate;
+	public Transform parentHolder;
 
 	GesturePatternDraw[] references;
 
@@ -42,8 +46,17 @@ public class ExampleGestureHandler : MonoBehaviour
 				}
 				else
 				{
+					int index = RandomElement.instance.currentIndex2;
 					Elements.instance.elements[RandomElement.instance.currentIndex2]++;
+					SceneGame1 sceneGame1 = GetComponent<SceneGame1>();
+					GameObject elementForAnimation = Instantiate<GameObject>(RandomElement.instance.imageList[index],
+						Vector2.zero, Quaternion.identity, parentInstantiate);
+					elementForAnimation.transform.localPosition = Vector2.zero;
+					elementForAnimation.transform.parent = parentHolder;
+					elementForAnimation.AddComponent<ElementFly>();
+					elementForAnimation.GetComponent<ElementFly>().positionToGo = sceneGame1.textPlaces[index].position;
 					textResult.text = "Good job!";
+
 				}
 			}
 			else

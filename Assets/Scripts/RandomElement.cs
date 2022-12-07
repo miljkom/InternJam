@@ -52,7 +52,6 @@ public class RandomElement : MonoBehaviour
         if(SceneGame1.endGame)
             StopCoroutine("changeImage");
     }
-
     IEnumerator changeImage()
     {
         currentIndex1 = currentIndex2;
