@@ -118,6 +118,7 @@ namespace GestureRecognizer {
 		public void OnEndDrag (PointerEventData eventData)
 		{
 			StartCoroutine (OnEndDragCoroutine (eventData));
+			ClearLines();
 		}
 
 		IEnumerator OnEndDragCoroutine(PointerEventData eventData){

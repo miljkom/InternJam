@@ -7,6 +7,6 @@ public class ElementFly : MonoBehaviour
     public Vector2 positionToGo;
     private void FixedUpdate()
     {
-        transform.position = Vector2.MoveTowards(transform.position, positionToGo, Time.deltaTime * 2000f);
+        transform.position = Vector2.MoveTowards(transform.position, positionToGo, Time.deltaTime * 4000f);
     }
 }

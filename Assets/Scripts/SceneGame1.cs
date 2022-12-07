@@ -23,6 +23,7 @@ public class SceneGame1 : MonoBehaviour
         {
             StopCoroutine("CheckScoreCourutine");
             EndGame();
+            endGame = false;
         }
         if(endGameScreen)
             if (Input.anyKey)
