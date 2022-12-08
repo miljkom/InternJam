@@ -71,7 +71,7 @@ public class RandomElement : MonoBehaviour
         }
     }
 
-    public void tntBomb()
+    public void TntBomb()
     {
         if (currentIndex2 == 4)
         {

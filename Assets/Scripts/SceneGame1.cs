@@ -21,6 +21,7 @@ public class SceneGame1 : MonoBehaviour
     public static bool endGame = false;
     public bool endGameScreen = false;
     public bool startGameScreen = false;
+    public static bool firstTimeEntering = true;
 
 
     private void Awake()
@@ -39,12 +40,13 @@ public class SceneGame1 : MonoBehaviour
         if(endGameScreen)
             if (Input.anyKey)
                 SceneManager.LoadScene("Scenes/SceneStart",LoadSceneMode.Single);
-        if (startGameScreen)
+        if (startGameScreen && firstTimeEntering)
         {
             if (Input.anyKey)
             {
                 Destroy(startScreen.gameObject);
                 Time.timeScale = 1f;
+                firstTimeEntering = false;
             }
         }
 
@@ -61,9 +63,13 @@ public class SceneGame1 : MonoBehaviour
 
     private void Start()
     {
-        startScreen =
-            Instantiate<GameObject>(this.startScreen, Vector2.zero, Quaternion.identity, placeHolder);
-        startScreen.transform.localPosition = Vector2.zero;
+        if (firstTimeEntering)
+        {
+            startScreen =
+                Instantiate<GameObject>(this.startScreen, Vector2.zero, Quaternion.identity, placeHolder);
+            startScreen.transform.localPosition = Vector2.zero;
+        }
+
         StartCoroutine("CheckScoreCourutine");
         for (int i = 0; i < 4; i++)
         {
