@@ -945,6 +945,7 @@ MonoBehaviour:
   - {fileID: 2413275191312568363, guid: e3edd17a44f1e7049ac95b8df66e0227, type: 3}
   - {fileID: 929930595648486595, guid: 0e0ff1947a6e8ec47a4523abd97bf4ad, type: 3}
   - {fileID: 1935005070408694875, guid: 50a68b88a0c4c3d4bb8c856f526cb20b, type: 3}
+  drawScreen: {fileID: 1762664517}
 --- !u!1 &803873691
 GameObject:
   m_ObjectHideFlags: 0
@@ -2541,8 +2542,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textResult: {fileID: 509853752}
-  parentInstantiate: {fileID: 1613316159}
   parentHolder: {fileID: 1572743363}
+  drawScreen: {fileID: 1762664517}
 --- !u!114 &1762664522
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ public class GestureHandler : MonoBehaviour
 
 	public Text textResult;
 	public Transform parentHolder;
+	public GameObject drawScreen;
 	
 	public void OnRecognize(RecognitionResult result)
 	{
@@ -45,14 +46,15 @@ public class GestureHandler : MonoBehaviour
 						RandomGesture.instance.guessCounter++;
 					if(RandomGesture.instance.guessCounter == 3)
 					{
-						RandomElement.instance.StopAllCoroutines();
+						/*RandomElement.instance.StopAllCoroutines();*/
 						RandomElement.instance.secondsToChangeImage -= 0.5f;
 						Debug.Log(RandomElement.instance.secondsToChangeImage + " sekunde");
-						RandomElement.instance.StartCoroutine("ChangeImage");
+						/*RandomElement.instance.StartCoroutine("ChangeImage");*/
 						RandomGesture.instance.guessCounter = 0;
 					}
 					Debug.Log(RandomGesture.instance.guessCounter);
 					textResult.text = "Good job!";
+					drawScreen.GetComponent<DrawDetector>().enabled = false;
 				}
 			}
 			else
