@@ -25,13 +25,11 @@ public class GestureHandler : MonoBehaviour
 				{
 					RandomElement.instance.tntBomb();
 					textResult.text = "Boom u lost progress";
-					RandomElement.instance.StopAllCoroutines();
-					RandomGesture.instance.StopAllCoroutines();
 					
+					RandomElement.instance.StopAllCoroutines();
 					RandomElement.instance.secondsToChangeImage = 4f;
-					RandomGesture.instance.secondsToChangeGesture = 4f;
 					RandomElement.instance.StartCoroutine("ChangeImage");
-					RandomGesture.instance.StartCoroutine("ChangeGesture");
+					
 					RandomGesture.instance.guessCounter = 0;
 				}
 				else
@@ -45,20 +43,19 @@ public class GestureHandler : MonoBehaviour
 					elementForAnimation.transform.parent = parentHolder;
 					elementForAnimation.AddComponent<ElementFly>();
 					elementForAnimation.GetComponent<ElementFly>().positionToGo = sceneGame1.textPlaces[index].position;
-					RandomGesture.instance.guessCounter++;
-					Debug.Log(RandomGesture.instance.guessCounter);
-					if (RandomGesture.instance.guessCounter == 3)
+					
+					if(Elements.instance.elements[index] <= 3)
+						RandomGesture.instance.guessCounter++;
+					if(RandomGesture.instance.guessCounter == 3)
 					{
-						RandomGesture.instance.StopAllCoroutines();
 						RandomElement.instance.StopAllCoroutines();
-						
-						RandomGesture.instance.secondsToChangeGesture -= 0.5f;
 						RandomElement.instance.secondsToChangeImage -= 0.5f;
-						
-						RandomGesture.instance.StartCoroutine("ChangeGesture");
+						Debug.Log(RandomElement.instance.secondsToChangeImage + " sekunde");
 						RandomElement.instance.StartCoroutine("ChangeImage");
+						
 						RandomGesture.instance.guessCounter = 0;
 					}
+					Debug.Log(RandomGesture.instance.guessCounter);
 					textResult.text = "Good job!";
 				}
 			}
