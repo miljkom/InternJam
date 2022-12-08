@@ -66,12 +66,7 @@ public class RandomElement : MonoBehaviour
                 Destroy(_transform.GetChild(1).GetChild(0).gameObject);
             if(_transform.GetChild(2).childCount > 1)
                 Destroy(_transform.GetChild(2).GetChild(0).gameObject);
-           
-            /*placeList[0].transform.position = Vector3.MoveTowards(placeList[0].transform.position, placeList[1].transform.position, Time.deltaTime * secondsToChangeImage);
-            placeList[1].transform.position = Vector3.MoveTowards(placeList[1].transform.position, placeList[2].transform.position, Time.deltaTime * secondsToChangeImage);
-            placeList[2].transform.position = Vector3.MoveTowards(placeList[2].transform.position, placeList[2].transform.position + placeList[2].transform.position,
-                Time.deltaTime * secondsToChangeImage);*/
-            
+
             yield return new WaitForSeconds(secondsToChangeImage);
         }
     }
