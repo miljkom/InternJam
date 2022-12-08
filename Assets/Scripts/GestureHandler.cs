@@ -11,30 +11,12 @@ public class GestureHandler : MonoBehaviour
 {
 
 	public Text textResult;
-
-	public Transform referenceRoot;
+	
 	public Transform parentInstantiate;
 	public Transform parentHolder;
-
-	GesturePatternDraw[] references;
-
-	void Start()
-	{
-		references = referenceRoot.GetComponentsInChildren<GesturePatternDraw>();
-	}
-
-	void ShowAll()
-	{
-		for (int i = 0; i < references.Length; i++)
-		{
-			references[i].gameObject.SetActive(true);
-		}
-	}
-
+	
 	public void OnRecognize(RecognitionResult result)
 	{
-		StopAllCoroutines();
-		ShowAll();
 		if (result != RecognitionResult.Empty)
 		{
 			if (result.gesture.id == RandomGesture.instance.currentGesture.id)
@@ -43,6 +25,14 @@ public class GestureHandler : MonoBehaviour
 				{
 					RandomElement.instance.tntBomb();
 					textResult.text = "Boom u lost progress";
+					RandomElement.instance.StopAllCoroutines();
+					RandomGesture.instance.StopAllCoroutines();
+					
+					RandomElement.instance.secondsToChangeImage = 4f;
+					RandomGesture.instance.secondsToChangeGesture = 4f;
+					RandomElement.instance.StartCoroutine("ChangeImage");
+					RandomGesture.instance.StartCoroutine("ChangeGesture");
+					RandomGesture.instance.guessCounter = 0;
 				}
 				else
 				{
@@ -55,8 +45,21 @@ public class GestureHandler : MonoBehaviour
 					elementForAnimation.transform.parent = parentHolder;
 					elementForAnimation.AddComponent<ElementFly>();
 					elementForAnimation.GetComponent<ElementFly>().positionToGo = sceneGame1.textPlaces[index].position;
+					RandomGesture.instance.guessCounter++;
+					Debug.Log(RandomGesture.instance.guessCounter);
+					if (RandomGesture.instance.guessCounter == 3)
+					{
+						RandomGesture.instance.StopAllCoroutines();
+						RandomElement.instance.StopAllCoroutines();
+						
+						RandomGesture.instance.secondsToChangeGesture -= 0.5f;
+						RandomElement.instance.secondsToChangeImage -= 0.5f;
+						
+						RandomGesture.instance.StartCoroutine("ChangeGesture");
+						RandomElement.instance.StartCoroutine("ChangeImage");
+						RandomGesture.instance.guessCounter = 0;
+					}
 					textResult.text = "Good job!";
-
 				}
 			}
 			else

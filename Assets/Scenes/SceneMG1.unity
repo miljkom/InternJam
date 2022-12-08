@@ -2757,7 +2757,9 @@ MonoBehaviour:
   textC: {fileID: 1019344410}
   textD: {fileID: 40095702}
   endScreen: {fileID: 617299972972238962, guid: cc47e2beee9b5c34594828de784fdcae, type: 3}
+  startScreen: {fileID: 9178393676776587704, guid: 12ae1e6f853f99f42ae8673953e4a992, type: 3}
   endGameScreen: 0
+  startGameScreen: 0
   placeHolder: {fileID: 1572743363}
 --- !u!1 &1828248256
 GameObject:

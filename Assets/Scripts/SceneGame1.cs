@@ -11,14 +11,22 @@ using UnityEngine.SceneManagement;
 public class SceneGame1 : MonoBehaviour
 {
     public Transform[] textPlaces;
-    public TextMeshProUGUI textA, textB, textC, textD;
-    public static bool endGame = false;
-    public GameObject endScreen;
-    public GameObject startScreen;
-    public bool endGameScreen = false;
-    public bool startGameScreen = false;
     public Transform placeHolder;
     
+    public TextMeshProUGUI[] textX;
+    
+    public GameObject endScreen;
+    public GameObject startScreen;
+    
+    public static bool endGame = false;
+    public bool endGameScreen = false;
+    public bool startGameScreen = false;
+
+
+    private void Awake()
+    {
+        Time.timeScale = 0;
+    }
 
     private void Update()
     {
@@ -31,13 +39,23 @@ public class SceneGame1 : MonoBehaviour
         if(endGameScreen)
             if (Input.anyKey)
                 SceneManager.LoadScene("Scenes/SceneStart",LoadSceneMode.Single);
-        if(startGameScreen)
-            if(Input.anyKey)
+        if (startGameScreen)
+        {
+            if (Input.anyKey)
+            {
                 Destroy(startScreen.gameObject);
+                Time.timeScale = 1f;
+            }
+        }
+
         if ((Elements.instance.elements[0] == 0) &&
             (Elements.instance.elements[1] == 0) && (Elements.instance.elements[2] == 0) &&
             (Elements.instance.elements[3] == 0))
         {
+            for (int i = 0; i < 4; i++)
+            {
+                textX[i].color = Color.red;
+            }
         }
     }
 
@@ -47,10 +65,10 @@ public class SceneGame1 : MonoBehaviour
             Instantiate<GameObject>(this.startScreen, Vector2.zero, Quaternion.identity, placeHolder);
         startScreen.transform.localPosition = Vector2.zero;
         StartCoroutine("CheckScoreCourutine");
-        textA.color = Color.red;
-        textB.color = Color.red;
-        textC.color = Color.red;
-        textD.color = Color.red;
+        for (int i = 0; i < 4; i++)
+        {
+            textX[i].color = Color.red;
+        }
         startGameScreen = true;
     }
 
@@ -64,32 +82,16 @@ public class SceneGame1 : MonoBehaviour
 
     public void CheckScore()
     {
-        textA.text = Elements.instance.elements[0].ToString() + "/3";
-        textB.text = Elements.instance.elements[1].ToString() + "/3";
-        textC.text = Elements.instance.elements[2].ToString() + "/3";
-        textD.text = Elements.instance.elements[3].ToString() + "/3";
-        if(Elements.instance.elements[0] > 2)
-            textA.color = Color.green;
-        else if(Elements.instance.elements[0] > 0)
-            textA.color = Color.white;
-        if(Elements.instance.elements[1] > 2)
-            textB.color = Color.green;
-        else if(Elements.instance.elements[1] > 0)
-            textB.color = Color.white;
-        if(Elements.instance.elements[2] > 2)
-            textC.color = Color.green;
-        else if(Elements.instance.elements[2] > 0)
-            textC.color = Color.white;
-        if(Elements.instance.elements[3] > 2)
-            textD.color = Color.green;
-        else if(Elements.instance.elements[3] > 0)
-            textD.color = Color.white;
-        if ((Elements.instance.elements[0] > 2) &&
-            (Elements.instance.elements[1] > 2) && (Elements.instance.elements[2] > 2) &&
-            (Elements.instance.elements[3] > 2))
+        for (int i = 0; i < 4; i++)
         {
-            endGame = true;
+            textX[i].text = Elements.instance.elements[i].ToString() + "/3";
+            if (Elements.instance.elements[i] > 2)
+                textX[i].color = Color.green;
+            else if(Elements.instance.elements[i] > 0)
+                textX[i].color = Color.white;
         }
+        if (Elements.instance.elements[0] > 2 && Elements.instance.elements[1] > 2 && Elements.instance.elements[2] > 2 && Elements.instance.elements[3] > 2)
+                endGame = true;
     }
 
     IEnumerator CheckScoreCourutine()

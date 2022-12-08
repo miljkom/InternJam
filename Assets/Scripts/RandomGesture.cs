@@ -10,52 +10,55 @@ using Random = UnityEngine.Random;
 public class RandomGesture : MonoBehaviour
 {
     public float secondsToChangeGesture = 4f;
-    public List<GesturePattern> gesturePatterns;
-    public GesturePattern currentGesture;
     private int currentIndex;
-    [HideInInspector]
-    public bool timeToChange = true;
+    public int guessCounter = 0;
+    public List<GesturePattern> gesturePatterns;
     public List<GameObject> prefabGesture;
+    public GesturePattern currentGesture;
+
     [SerializeField] public Transform parentImage;
     public static RandomGesture instance;
     private Transform _transform;
+    
     private void Awake()
     {
         if (instance == null)
             instance = this;
         _transform = transform;
-        timeToChange = true;
     }
-    
+
+    private void Start()
+    {
+        StartCoroutine("ChangeGesture");
+    }
 
     private void Update()
     {
-        if(timeToChange)
-        {
-            timeToChange = false;
-            StartCoroutine("ChangeGesture");
-        }
         if(SceneGame1.endGame)
             StopCoroutine("ChangeGesture");
     }
 
     IEnumerator ChangeGesture()
     {
-        if(_transform.childCount > 0)
-            Destroy(_transform.GetChild(0).gameObject);
-        currentGesture = randomPattern();
-        Debug.Log(currentGesture.id);
-        if (currentGesture.id == "up")
-            Instantiate(prefabGesture[currentIndex], parentImage.position, Quaternion.identity,parentImage);
-        if (currentGesture.id == "w")
-            Instantiate(prefabGesture[currentIndex], parentImage.position, Quaternion.identity,parentImage);
-        if (currentGesture.id == "Circle")
-            Instantiate(prefabGesture[currentIndex], parentImage.position, Quaternion.identity,parentImage);
-        if (currentGesture.id == "Square")
-            Instantiate(prefabGesture[currentIndex], parentImage.position, Quaternion.identity,parentImage);
+        while (true)
+        {
+            if (_transform.childCount > 0)
+                Destroy(_transform.GetChild(0).gameObject);
+            currentGesture = randomPattern();
 
-        yield return new WaitForSeconds(secondsToChangeGesture);
-        timeToChange = true;
+            Debug.Log(currentGesture.id);
+
+            if (currentGesture.id == "up")
+                Instantiate(prefabGesture[currentIndex], parentImage.position, Quaternion.identity, parentImage);
+            if (currentGesture.id == "w")
+                Instantiate(prefabGesture[currentIndex], parentImage.position, Quaternion.identity, parentImage);
+            if (currentGesture.id == "Circle")
+                Instantiate(prefabGesture[currentIndex], parentImage.position, Quaternion.identity, parentImage);
+            if (currentGesture.id == "Square")
+                Instantiate(prefabGesture[currentIndex], parentImage.position, Quaternion.identity, parentImage);
+
+            yield return new WaitForSeconds(secondsToChangeGesture);
+        }
     }
 
     public GesturePattern randomPattern()

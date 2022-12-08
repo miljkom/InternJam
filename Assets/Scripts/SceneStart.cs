@@ -11,7 +11,7 @@ public class SceneStart : MonoBehaviour
 
     private void Awake()
     {
-        startButtonMG1.onClick.AddListener(() => SceneManager.LoadScene("Scenes/SceneMG1", LoadSceneMode.Single));
+        startButtonMG1.onClick.SetListener(() => SceneManager.LoadScene("Scenes/SceneMG1", LoadSceneMode.Single));
     }
     
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -30,7 +31,6 @@ public class RandomElement : MonoBehaviour
 
     private void Start()
     {
-        timeToChange = true;
         currentIndex1 = Random.Range(0, imageList.Count);
         placeList[0] = Instantiate(imageList[currentIndex1], _transform.GetChild(0).position, Quaternion.identity,
             _transform.GetChild(0));
@@ -40,37 +40,35 @@ public class RandomElement : MonoBehaviour
         currentIndex3 = Random.Range(0, imageList.Count);
         placeList[2] = Instantiate(imageList[currentIndex3], _transform.GetChild(2).position, Quaternion.identity,
             _transform.GetChild(2));
+        StartCoroutine("ChangeImage");
     }
-    
     private void Update()
     {
-        if (timeToChange)
-        {
-            timeToChange = false;
-            StartCoroutine("changeImage");
-        }
         if(SceneGame1.endGame)
-            StopCoroutine("changeImage");
+            StopCoroutine("ChangeImage");
     }
-    IEnumerator changeImage()
+    IEnumerator ChangeImage()
     {
-        currentIndex1 = currentIndex2;
-        placeList[0] = Instantiate(imageList[currentIndex1], _transform.GetChild(0).position, Quaternion.identity,
-            _transform.GetChild(0));
-        currentIndex2 = currentIndex3;
-        placeList[1] = Instantiate(imageList[currentIndex2], _transform.GetChild(1).position, Quaternion.identity,
-            _transform.GetChild(1));
-        currentIndex3 = Random.Range(0, imageList.Count);
-        placeList[2] = Instantiate(imageList[currentIndex3], _transform.GetChild(2).position, Quaternion.identity,
-            _transform.GetChild(2));
-        if(_transform.GetChild(0).childCount > 1)
-            Destroy(_transform.GetChild(0).GetChild(0).gameObject);
-        if(_transform.GetChild(1).childCount > 1)
-            Destroy(_transform.GetChild(1).GetChild(0).gameObject);
-        if(_transform.GetChild(2).childCount > 1)
-            Destroy(_transform.GetChild(2).GetChild(0).gameObject);
-        yield return new WaitForSeconds(secondsToChangeImage);
-        timeToChange = true;
+        while(true){
+            currentIndex1 = currentIndex2;
+            placeList[0] = Instantiate(imageList[currentIndex1], _transform.GetChild(0).position, Quaternion.identity,
+                _transform.GetChild(0));
+            currentIndex2 = currentIndex3;
+            placeList[1] = Instantiate(imageList[currentIndex2], _transform.GetChild(1).position, Quaternion.identity,
+                _transform.GetChild(1));
+            currentIndex3 = Random.Range(0, imageList.Count);
+            placeList[2] = Instantiate(imageList[currentIndex3], _transform.GetChild(2).position, Quaternion.identity,
+                _transform.GetChild(2));
+            
+            if(_transform.GetChild(0).childCount > 1)
+                Destroy(_transform.GetChild(0).GetChild(0).gameObject);
+            if(_transform.GetChild(1).childCount > 1)
+                Destroy(_transform.GetChild(1).GetChild(0).gameObject);
+            if(_transform.GetChild(2).childCount > 1)
+                Destroy(_transform.GetChild(2).GetChild(0).gameObject);
+            
+            yield return new WaitForSeconds(secondsToChangeImage);
+        }
     }
 
     public void tntBomb()
