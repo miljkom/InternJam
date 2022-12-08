@@ -25,9 +25,9 @@ public class GestureHandler : MonoBehaviour
 					RandomElement.instance.TntBomb();
 					textResult.text = "Boom u lost progress";
 					
-					RandomElement.instance.StopAllCoroutines();
+					/*RandomElement.instance.StopAllCoroutines();*/
 					RandomElement.instance.secondsToChangeImage = 4f;
-					RandomElement.instance.StartCoroutine("ChangeImage");
+					/*RandomElement.instance.StartCoroutine("ChangeImage");*/
 					
 					RandomGesture.instance.guessCounter = 0;
 				}
@@ -37,6 +37,9 @@ public class GestureHandler : MonoBehaviour
 					Elements.instance.elements[RandomElement.instance.currentIndex2]++;
 					SceneGame1 sceneGame1 = GetComponent<SceneGame1>();
 					GameObject elementForAnimation = RandomElement.instance.placeList[1].gameObject;
+					elementForAnimation.transform.localScale = new Vector3(
+						elementForAnimation.transform.localScale.x * 2,
+						elementForAnimation.transform.localScale.y * 2);
 					elementForAnimation.transform.localPosition = Vector2.zero;
 					elementForAnimation.transform.parent = parentHolder;
 					elementForAnimation.AddComponent<ElementFly>();
