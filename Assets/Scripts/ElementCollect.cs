@@ -10,6 +10,7 @@ public class ElementCollect : MonoBehaviour
         if (col.CompareTag("Element"))
         {
             Destroy(col.gameObject);
+            RandomElement.dontCreate = false;
         }
     }
 }

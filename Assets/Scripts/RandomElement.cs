@@ -15,7 +15,10 @@ public class RandomElement : MonoBehaviour
     private int currentIndex1;
     private int currentIndex2;
     public int currentIndex3;
-    private bool dontCreate = false;
+    
+    public static bool dontCreate = false;
+    public static bool noCurrentElement = false;
+    
     public List<GameObject> placeList;
     public List<GameObject> pList;
     private Transform _transform;
@@ -29,6 +32,14 @@ public class RandomElement : MonoBehaviour
         if (instance == null)
             instance = this;
         _transform = transform;
+    }
+
+    public void Reset()
+    {
+        secondsToChangeImage = 4f;
+        dontCreate = false;
+        noCurrentElement = false;
+        GestureHandler.isGuessed = false;
     }
 
     private void Start()
@@ -60,30 +71,46 @@ public class RandomElement : MonoBehaviour
             float timeElapsed = 0f;
             while (timeElapsed < secondsToChangeImage)
             {
-                pList[0].transform.position = Vector3.Lerp(placeList[0].transform.position,
-                    placeList[1].transform.position, timeElapsed / secondsToChangeImage);
-                pList[1].transform.position = Vector3.Lerp(placeList[1].transform.position,
-                    placeList[2].transform.position, timeElapsed / secondsToChangeImage);
+                Vector3 startPoint = new Vector3(placeList[0].transform.position.x,
+                    placeList[0].transform.position.y);
+                Vector3 endPoint = new Vector3(placeList[1].transform.position.x,
+                    placeList[1].transform.position.y);
+                
+                pList[0].transform.position = Vector3.Lerp(startPoint,endPoint, timeElapsed / secondsToChangeImage);
+
+                startPoint.x = placeList[1].transform.position.x;
+                endPoint.x = placeList[2].transform.position.x;
+                
+                pList[1].transform.position = Vector3.Lerp(startPoint, endPoint, timeElapsed / secondsToChangeImage);
+                
                 if (!GestureHandler.isGuessed)
                 {
+                    startPoint.x = placeList[2].transform.position.x;
+                    endPoint.x = placeList[3].transform.position.x;
+                    
                     pList[2].SetActive(true);
-                    pList[2].transform.position = Vector3.Lerp(placeList[2].transform.position,
-                        placeList[3].transform.position, timeElapsed / secondsToChangeImage);
+                    pList[2].transform.position = Vector3.Lerp(startPoint,endPoint, timeElapsed / secondsToChangeImage);
                 }
                 else
                     pList[2].SetActive(false);
-                pList[3].transform.position = Vector3.Lerp(placeList[3].transform.position,
-                    placeList[4].transform.position, timeElapsed / secondsToChangeImage);
+
+                startPoint.x = placeList[3].transform.position.x;
+                endPoint.x = placeList[4].transform.position.x;
+                
+                pList[3].transform.position = Vector3.Lerp(startPoint,endPoint, timeElapsed / secondsToChangeImage);
 
                 timeElapsed += Time.deltaTime;
                 yield return null;
             }
-            drawScreen.GetComponent<DrawDetector>().enabled = true;
            
             int tmp = currentIndex1;
             currentIndex3 = currentIndex2;
             currentIndex2 = tmp;
             currentIndex1 = Random.Range(0, imageList.Count);
+            
+            while(Elements.instance.elements[currentIndex1] >= 3)
+                currentIndex1 = Random.Range(0, imageList.Count);
+            
             
             pList[4] = pList[3];
             pList[3].transform.SetParent(placeList[4].transform.GetChild(0));
@@ -100,13 +127,14 @@ public class RandomElement : MonoBehaviour
             pList[0] = Instantiate(imageList[currentIndex1], _transform.GetChild(0).position, Quaternion.identity,
                 _transform.GetChild(0).GetChild(0));
             GestureHandler.isGuessed = false;
+            noCurrentElement = false;
             yield return null;
         }
     }
 
     public void TntBomb()
     {
-        if (currentIndex2 == 4)
+        if (currentIndex3 == 4)
         {
             for (int i = 0; i < 5; i++)
             {

@@ -19,7 +19,7 @@ public class GestureHandler : MonoBehaviour
 	{
 		if (result != RecognitionResult.Empty)
 		{
-			if (result.gesture.id == RandomGesture.instance.currentGesture.id)
+			if (result.gesture.id == RandomGesture.instance.currentGesture.id && !RandomElement.noCurrentElement)
 			{
 				if (RandomElement.instance.currentIndex3 == 4)
 				{
@@ -31,14 +31,12 @@ public class GestureHandler : MonoBehaviour
 				else
 				{
 					isGuessed = true;
+					RandomElement.dontCreate = true;
 					int index = RandomElement.instance.currentIndex3;
 					Elements.instance.elements[index]++;
 					SceneGame1 sceneGame1 = GetComponent<SceneGame1>();
 					GameObject elementForAnimation = Instantiate(RandomElement.instance.imageList[index], Vector2.zero, Quaternion.identity, parentHolder);
-						
-					elementForAnimation.transform.localScale = new Vector3(
-						elementForAnimation.transform.localScale.x * 2,
-						elementForAnimation.transform.localScale.y * 2);
+					
 					elementForAnimation.transform.localPosition = Vector2.zero;
 					elementForAnimation.transform.parent = parentHolder;
 					elementForAnimation.AddComponent<ElementFly>();
@@ -53,8 +51,8 @@ public class GestureHandler : MonoBehaviour
 						RandomGesture.instance.guessCounter = 0;
 					}
 					Debug.Log(RandomGesture.instance.guessCounter);
+					RandomElement.noCurrentElement = true;
 					textResult.text = "Good job!";
-					drawScreen.GetComponent<DrawDetector>().enabled = false;
 				}
 			}
 			else
