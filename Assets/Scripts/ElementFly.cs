@@ -9,8 +9,8 @@ public class ElementFly : MonoBehaviour
     private float _currentScale = InitScale;
     private const float TargetScale = 1.5f;
     private const float InitScale = 1f;
-    private const int FramesCount = 60;
-    private const float AnimationTimeSeconds = 0.5f;
+    private const int FramesCount = 30;
+    private const float AnimationTimeSeconds = 0.1f;
     private float _deltaTime = AnimationTimeSeconds/FramesCount;
     private float _dx = (TargetScale - InitScale)/FramesCount;
     private bool _upScale = true;
@@ -33,10 +33,10 @@ public class ElementFly : MonoBehaviour
             yield return new WaitForSeconds(_deltaTime);
         }
         float timeElapsed = 0f;
-        while (timeElapsed < 2f)
+        while (timeElapsed < 1f)
         {
             transform.position = Vector3.Lerp(transform.position, positionToGo,
-                timeElapsed / 2f);
+                timeElapsed / 1f);
             timeElapsed += Time.deltaTime;
             yield return null;
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using GestureRecognizer;
 using Unity.Mathematics;
 using Unity.VisualScripting;
@@ -18,7 +19,7 @@ public class RandomElement : MonoBehaviour
     
     public static bool dontCreate = false;
     public static bool noCurrentElement = false;
-    
+
     public List<GameObject> placeList;
     public List<GameObject> pList;
     private Transform _transform;
@@ -40,6 +41,13 @@ public class RandomElement : MonoBehaviour
         dontCreate = false;
         noCurrentElement = false;
         GestureHandler.isGuessed = false;
+        Destroy(pList[0].transform.gameObject);
+        Destroy(pList[1].transform.gameObject);
+        Destroy(pList[2].transform.gameObject);
+        Destroy(pList[3].transform.gameObject);
+        
+        StopCoroutine("ChangeImage");
+        Start();
     }
 
     private void Start()
@@ -47,21 +55,24 @@ public class RandomElement : MonoBehaviour
         currentIndex1 = Random.Range(0, imageList.Count);
         pList[0] = Instantiate(imageList[currentIndex1], _transform.GetChild(0).position, Quaternion.identity,
             _transform.GetChild(0).GetChild(0));
+        pList[0].transform.GetChild(0).GetComponent<Image>().enabled = false;
+        
         currentIndex2 = Random.Range(0, imageList.Count);
         pList[1] = Instantiate(imageList[currentIndex2], _transform.GetChild(1).position, Quaternion.identity,
             _transform.GetChild(1).GetChild(0));
+        pList[1].transform.GetChild(0).GetComponent<Image>().enabled = false;
+        
         currentIndex3 = Random.Range(0, imageList.Count);
         pList[2] = Instantiate(imageList[currentIndex3], _transform.GetChild(2).position, Quaternion.identity,
             _transform.GetChild(2).GetChild(0));
+        pList[2].transform.GetChild(0).GetComponent<Image>().enabled = true;
+        
         int currentIndex4 = Random.Range(0, imageList.Count);
         pList[3] = Instantiate(imageList[currentIndex4], _transform.GetChild(3).position, Quaternion.identity,
             _transform.GetChild(3).GetChild(0));
+        pList[3].transform.GetChild(0).GetComponent<Image>().enabled = false;
+        
         StartCoroutine("ChangeImage");
-    }
-    private void Update()
-    {
-        if(SceneGame1.endGame)
-            StopCoroutine("ChangeImage");
     }
 
     IEnumerator ChangeImage()
@@ -120,12 +131,16 @@ public class RandomElement : MonoBehaviour
             pList[1].transform.SetParent(placeList[2].transform.GetChild(0));
             pList[1] = pList[0];
             pList[0].transform.SetParent(placeList[1].transform.GetChild(0));
+           
+            pList[1].transform.GetChild(0).GetComponent<Image>().enabled = false;
+            pList[2].transform.GetChild(0).GetComponent<Image>().enabled = true;
+            pList[3].transform.GetChild(0).GetComponent<Image>().enabled = false;
             
             if(pList[4].transform.parent.childCount > 0)
                 Destroy(pList[4].transform.gameObject);
-            
             pList[0] = Instantiate(imageList[currentIndex1], _transform.GetChild(0).position, Quaternion.identity,
                 _transform.GetChild(0).GetChild(0));
+            pList[0].transform.GetChild(0).GetComponent<Image>().enabled = false;
             GestureHandler.isGuessed = false;
             noCurrentElement = false;
             yield return null;

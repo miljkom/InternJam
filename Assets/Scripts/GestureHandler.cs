@@ -12,6 +12,9 @@ public class GestureHandler : MonoBehaviour
 
 	public Text textResult;
 	public Transform parentHolder;
+	public Transform popupLoseHolder;
+	
+	public GameObject popupLose;
 	public GameObject drawScreen;
 	public static bool isGuessed = false;
 
@@ -24,7 +27,9 @@ public class GestureHandler : MonoBehaviour
 				if (RandomElement.instance.currentIndex3 == 4)
 				{
 					RandomElement.instance.TntBomb();
-					textResult.text = "Boom u lost progress(will add popup)!";
+					popupLose = Instantiate<GameObject>(this.popupLose,
+						Vector2.zero, Quaternion.identity, popupLoseHolder);
+					popupLose.transform.localPosition = Vector2.zero;
 					RandomElement.instance.secondsToChangeImage = 4f;
 					RandomGesture.instance.guessCounter = 0;
 				}

@@ -40,6 +40,7 @@ public class SceneGame1 : MonoBehaviour
         if (endGame)
         {
             StopCoroutine("CheckScoreCourutine");
+            RandomElement.instance.StopCoroutine("ChangeImage");
             EndGame();
             endGame = false;
         }
