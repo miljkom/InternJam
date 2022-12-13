@@ -12,7 +12,7 @@ using Random = UnityEngine.Random;
 
 public class RandomElement : MonoBehaviour
 {
-    public float secondsToChangeImage = 4f;
+    public float secondsToChangeImage = 3f;
     private int currentIndex1;
     private int currentIndex2;
     public int currentIndex3;
@@ -37,7 +37,7 @@ public class RandomElement : MonoBehaviour
 
     public void Reset()
     {
-        secondsToChangeImage = 4f;
+        secondsToChangeImage = 3f;
         dontCreate = false;
         noCurrentElement = false;
         GestureHandler.isGuessed = false;

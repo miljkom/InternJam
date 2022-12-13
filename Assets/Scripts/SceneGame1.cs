@@ -28,6 +28,7 @@ public class SceneGame1 : MonoBehaviour
     public bool endGameScreen = false;
     public bool startGameScreen = false;
     public static bool firstTimeEntering = true;
+    public static int scoreCounter = 0;
 
     private void Awake()
     {
@@ -112,6 +113,7 @@ public class SceneGame1 : MonoBehaviour
             Vector2.zero, Quaternion.identity, placeHolder2);
         endScreen.transform.localPosition = Vector2.zero;
         endGameScreen = true;
+        scoreCounter++;
     }
 
     public void CheckScore()

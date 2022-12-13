@@ -54,7 +54,7 @@ public class GestureHandler : MonoBehaviour
 						RandomGesture.instance.guessCounter++;
 					if(RandomGesture.instance.guessCounter == 3)
 					{
-						RandomElement.instance.secondsToChangeImage -= 0.5f;
+						RandomElement.instance.secondsToChangeImage -= 0.33f;
 						Debug.Log(RandomElement.instance.secondsToChangeImage + " sekunde");
 						RandomGesture.instance.guessCounter = 0;
 					}

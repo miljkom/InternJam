@@ -15,4 +15,17 @@ public class ButtonBehaviour : MonoBehaviour
         RandomElement.instance.Reset();
         SceneManager.LoadScene("Scenes/SceneMG1", LoadSceneMode.Single);
     }
+
+    public void ButtonMG1()
+    {
+        SceneManager.LoadScene("Scenes/SceneMG1", LoadSceneMode.Single);
+    }
+    public void ButtonMG2()
+    {
+        SceneManager.LoadScene("Scenes/SceneMG3", LoadSceneMode.Single);
+    }
+    public void ButtonMG3()
+    {
+        SceneManager.LoadScene("Scenes/SceneMG2", LoadSceneMode.Single);
+    }
 }
