@@ -12,17 +12,6 @@ public class ElementFly : MonoBehaviour
     private const float AnimationTimeSeconds = 0.01f;
     private bool _upScale = true;
 
-    public static ElementFly instance;
-
-    private void Awake()
-    {
-        if (!instance)
-        {
-            QualitySettings.vSyncCount = 0;
-            Application.targetFrameRate = 60;
-        }
-    }
-
     private void Start()
     {
         StartCoroutine(Fly());

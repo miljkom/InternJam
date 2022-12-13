@@ -792,7 +792,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 8a2b9e2a607dd2143b58c44bc32410b4, type: 3}
+    m_Font: {fileID: 12800000, guid: 2ab8bbf50f2823d438c86fd005044ea2, type: 3}
     m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 1
@@ -2942,8 +2942,6 @@ MonoBehaviour:
   glowFrame: {fileID: 629666389}
   endGameScreen: 0
   startGameScreen: 0
-  fpsText: {fileID: 0}
-  frameCount: 0
 --- !u!1 &1828248256
 GameObject:
   m_ObjectHideFlags: 0

@@ -31,6 +31,8 @@ public class SceneGame1 : MonoBehaviour
 
     private void Awake()
     {
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60;
         Time.timeScale = 0;
     }
 

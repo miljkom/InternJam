@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using GestureRecognizer;
 using System.Linq;
+using Unity.VisualScripting;
 using Random = UnityEngine.Random;
 
 public class GestureHandler : MonoBehaviour
@@ -17,9 +18,11 @@ public class GestureHandler : MonoBehaviour
 	public GameObject popupLose;
 	public GameObject drawScreen;
 	public static bool isGuessed = false;
+	private bool textFade = true;
 
 	public void OnRecognize(RecognitionResult result)
 	{
+		StopAllCoroutines();
 		if (result != RecognitionResult.Empty)
 		{
 			if (result.gesture.id == RandomGesture.instance.currentGesture.id && !RandomElement.noCurrentElement)
@@ -59,18 +62,33 @@ public class GestureHandler : MonoBehaviour
 					RandomElement.noCurrentElement = true;
 					textResult.color = Color.white;
 					textResult.text = "Good job!";
+					StartCoroutine("ShowText");
 				}
 			}
 			else
 			{
-				textResult.text = "Try again?";
+				textResult.text = "Wrong!";
 				textResult.color = Color.red;
+				StartCoroutine("ShowText");
 			}
 		}
 		else
 		{
-			textResult.text = "Try again?";
+			textResult.text = "Wrong!";
 			textResult.color = Color.red;
+			StartCoroutine("ShowText");
+		}
+	}
+
+	IEnumerator ShowText()
+	{
+		float progress = 0.0f;
+		float lerpduration = 12f;
+		while (progress < lerpduration)
+		{
+			textResult.color = new Color(textResult.color.r, textResult.color.g, textResult.color.b, Mathf.Lerp(textResult.color.a,0f,progress / lerpduration));
+			progress += Time.deltaTime;
+			yield return null;
 		}
 	}
 }
