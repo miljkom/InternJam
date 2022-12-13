@@ -118,11 +118,15 @@ public class RandomElement : MonoBehaviour
             currentIndex3 = currentIndex2;
             currentIndex2 = tmp;
             currentIndex1 = Random.Range(0, imageList.Count);
-            
-            while(Elements.instance.elements[currentIndex1] >= 3)
+
+            while (Elements.instance.elements[currentIndex1] >= 3)
+            {
+                if (currentIndex1 == currentIndex2 && currentIndex1 == currentIndex3)
+                    currentIndex1 = Random.Range(0, imageList.Count);
                 currentIndex1 = Random.Range(0, imageList.Count);
-            
-            
+            }
+
+
             pList[4] = pList[3];
             pList[3].transform.SetParent(placeList[4].transform.GetChild(0));
             pList[3] = pList[2];

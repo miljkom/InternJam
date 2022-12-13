@@ -9,11 +9,20 @@ public class ElementFly : MonoBehaviour
     private float _currentScale = InitScale;
     private const float TargetScale = 1.5f;
     private const float InitScale = 1f;
-    private const int FramesCount = 30;
-    private const float AnimationTimeSeconds = 0.1f;
-    private float _deltaTime = AnimationTimeSeconds/FramesCount;
-    private float _dx = (TargetScale - InitScale)/FramesCount;
+    private const float AnimationTimeSeconds = 0.01f;
     private bool _upScale = true;
+
+    public static ElementFly instance;
+
+    private void Awake()
+    {
+        if (!instance)
+        {
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = 60;
+        }
+    }
+
     private void Start()
     {
         StartCoroutine(Fly());
@@ -23,14 +32,14 @@ public class ElementFly : MonoBehaviour
     {
         while (_upScale)
         {
-            _currentScale += _dx;
+            _currentScale += 0.05f;
             if (_currentScale > TargetScale)
             {
                 _upScale = false;
                 _currentScale = TargetScale;
             }
             transform.localScale = Vector3.one * _currentScale;
-            yield return new WaitForSeconds(_deltaTime);
+            yield return new WaitForSeconds(AnimationTimeSeconds);
         }
         float timeElapsed = 0f;
         while (timeElapsed < 1f)

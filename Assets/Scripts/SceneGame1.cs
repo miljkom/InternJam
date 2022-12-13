@@ -29,7 +29,6 @@ public class SceneGame1 : MonoBehaviour
     public bool startGameScreen = false;
     public static bool firstTimeEntering = true;
 
-
     private void Awake()
     {
         Time.timeScale = 0;

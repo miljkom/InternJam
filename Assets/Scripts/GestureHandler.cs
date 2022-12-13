@@ -57,17 +57,20 @@ public class GestureHandler : MonoBehaviour
 					}
 					Debug.Log(RandomGesture.instance.guessCounter);
 					RandomElement.noCurrentElement = true;
+					textResult.color = Color.white;
 					textResult.text = "Good job!";
 				}
 			}
 			else
 			{
 				textResult.text = "Try again?";
+				textResult.color = Color.red;
 			}
 		}
 		else
 		{
 			textResult.text = "Try again?";
+			textResult.color = Color.red;
 		}
 	}
 }

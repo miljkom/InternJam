@@ -2657,7 +2657,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 73ab71899d1590345ae4be434488de46, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.97382116, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2942,6 +2942,8 @@ MonoBehaviour:
   glowFrame: {fileID: 629666389}
   endGameScreen: 0
   startGameScreen: 0
+  fpsText: {fileID: 0}
+  frameCount: 0
 --- !u!1 &1828248256
 GameObject:
   m_ObjectHideFlags: 0
