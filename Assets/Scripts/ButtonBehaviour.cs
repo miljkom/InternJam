@@ -22,10 +22,10 @@ public class ButtonBehaviour : MonoBehaviour
     }
     public void ButtonMG2()
     {
-        SceneManager.LoadScene("Scenes/SceneMG3", LoadSceneMode.Single);
+        SceneManager.LoadScene("Scenes/SceneMG2", LoadSceneMode.Single);
     }
     public void ButtonMG3()
     {
-        SceneManager.LoadScene("Scenes/SceneMG2", LoadSceneMode.Single);
+        SceneManager.LoadScene("Scenes/SceneMG3", LoadSceneMode.Single);
     }
 }
