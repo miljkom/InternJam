@@ -28,21 +28,13 @@ public class BoardManager : MonoBehaviour
 
     public void AddElements()
     {
-        int l = 0;
-        int t = 0;
         for (int i = 0; i < parent.childCount; i++)
         {
             int index = Random.Range(0, imageElements.Count);
             parent.GetChild(i).GetComponent<Image>().sprite = imageElements[index];
             element[i].id = index;
-            element[i].cord = new Vector2(l, t);
+            element[i].cord = new Vector2(parent.GetChild(i).position.x, parent.GetChild(i).position.y);
             element[i].active = true;
-            t++;
-            if (t == 5)
-            {
-                t = 0;
-                l++;
-            }
         }
     }
 
@@ -62,14 +54,12 @@ public class BoardManager : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             Vector3 pos = Input.mousePosition;
-            pos.z = 90.00f;
             if (!setMouseImage)
             {
                 Debug.Log("USAO");
                 PositionCheck(pos);
                 setMouseImage = true;
             }
-
             DragElement.instance.dragElement.transform.position = pos;
         }
         else
@@ -93,12 +83,15 @@ public class BoardManager : MonoBehaviour
                 int index = element[i].id;
                 DragElement.instance.dragElement.transform.position = pos;
                 DragElement.instance.dragElement.GetComponent<Image>().sprite = imageElements[index];
+                DragElement.instance.dragElement.GetComponent<Element>().id = index;
+                DragElement.instance.dragElement.GetComponent<Element>().active = true;
+                DragElement.instance.dragElement.GetComponent<Element>().cord = new Vector2(x, y);
                 DragElement.instance.dragElement.SetActive(true);
             }
         }
     }
 
-    public GameObject ActivateObject(int id)
+    /*public GameObject ActivateObject(int id)
     {
         for (int i = 0; i < objectPooler.pooledObjects.Count; i++)
         {
@@ -111,7 +104,7 @@ public class BoardManager : MonoBehaviour
                 }
             }
         }
-
         return null;
-    }
+    }*/
+    
 }
