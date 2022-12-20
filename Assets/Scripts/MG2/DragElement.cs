@@ -19,7 +19,7 @@ public class DragElement : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.GetComponent<Image>().sprite == instance.dragElement.GetComponent<Image>().sprite)
+        if(col.GetComponent<Image>().sprite == instance.dragElement.GetComponent<Image>().sprite && col.GetComponent<Image>().enabled)
             Debug.Log("RADI");
     }
 }

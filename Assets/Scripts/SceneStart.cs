@@ -26,9 +26,8 @@ public class SceneStart : MonoBehaviour
 
         if (SceneGame1.scoreCounter == 3)
         {
-            gate.transform.GetChild(2).GetChild(2).gameObject.SetActive(false);
-            gate.transform.GetChild(2).GetChild(3).gameObject.SetActive(false);
-            gate.transform.GetChild(2).GetChild(4).gameObject.SetActive(true);
+            gate.transform.GetChild(2).GetChild(9).gameObject.SetActive(false);
+            gate.transform.GetChild(2).GetChild(8).gameObject.SetActive(true);
         }
     }
 }

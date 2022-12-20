@@ -78,7 +78,7 @@ public class BoardManager : MonoBehaviour
         {
             x = Math.Abs(pos.x - element[i].transform.position.x);
             y = Math.Abs(pos.y - element[i].transform.position.y);
-            if (x <= 74f && y <= 71.5f && !setMouseImage)
+            if (x <= 74f && y <= 71.5f && !setMouseImage && element[i].active)
             {
                 int index = element[i].id;
                 DragElement.instance.dragElement.transform.position = pos;
