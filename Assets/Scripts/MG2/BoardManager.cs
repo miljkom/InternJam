@@ -13,18 +13,27 @@ public class BoardManager : MonoBehaviour
     public List<Sprite> imageElements;
     public Transform parent;
     public ObjectPooler objectPooler;
+    public int[,] board = new int[5, 5];
     public static bool setMouseImage = false;
+    public static BoardManager instance;
+    public List<Sprite> spriteElements;
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
         objectPooler = ObjectPooler.Instance;
         AddElements();
         Hide3Elements();
+        SetMatrix();
     }
 
     private void Update()
     {
         SpawnAtMousePos();
     }
+    
 
     public void AddElements()
     {
@@ -33,9 +42,29 @@ public class BoardManager : MonoBehaviour
             int index = Random.Range(0, imageElements.Count);
             parent.GetChild(i).GetComponent<Image>().sprite = imageElements[index];
             element[i].id = index;
-            element[i].cord = new Vector2(parent.GetChild(i).position.x, parent.GetChild(i).position.y);
             element[i].active = true;
         }
+    }
+
+    public void Add5Elements()
+    {
+        int counter = 0;
+        int sizeOfBoard = 25;
+        for (int i = 0; i < sizeOfBoard; i++)
+        {
+            int index = Random.Range(0, imageElements.Count);
+            if (element[i].id == 10)
+            {
+                parent.GetChild(i).GetComponent<Image>().enabled = true;
+                parent.GetChild(i).GetComponent<Image>().sprite = imageElements[index];
+                element[i].id = index;
+                element[i].active = true;
+                counter++;
+                if (counter == 5)
+                    break;
+            }
+        }
+        SetMatrix();
     }
 
     public void Hide3Elements()
@@ -45,6 +74,7 @@ public class BoardManager : MonoBehaviour
             int index = Random.Range(0, parent.childCount);
             parent.GetChild(index).GetComponent<Image>().enabled = false;
             element[index].active = false;
+            element[index].id = 10;
         }
     }
 
@@ -85,8 +115,24 @@ public class BoardManager : MonoBehaviour
                 DragElement.instance.dragElement.GetComponent<Image>().sprite = imageElements[index];
                 DragElement.instance.dragElement.GetComponent<Element>().id = index;
                 DragElement.instance.dragElement.GetComponent<Element>().active = true;
-                DragElement.instance.dragElement.GetComponent<Element>().cord = new Vector2(x, y);
+                DragElement.instance.dragElement.GetComponent<Element>().cord = element[i].cord;
                 DragElement.instance.dragElement.SetActive(true);
+                element[i].active = false;
+                element[i].GetComponent<Image>().enabled = false;
+            }
+        }
+    }
+
+    public void SetMatrix()
+    {
+        int k = 0;
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 5; j++)
+            {
+                board[i, j] = element[k].id;
+                element[k].cord = new Vector2(i, j);
+                k++;
             }
         }
     }
