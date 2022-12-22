@@ -17,6 +17,8 @@ public class BoardManager : MonoBehaviour
     public static bool setMouseImage = false;
     public static BoardManager instance;
     public List<Sprite> spriteElements;
+    public Camera camera;
+
     private void Awake()
     {
         if (instance == null)
@@ -32,6 +34,17 @@ public class BoardManager : MonoBehaviour
     private void Update()
     {
         SpawnAtMousePos();
+        if (Input.GetMouseButtonUp(0))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(Input.mousePosition, Vector2.one, 10f);
+            if(DragElement.entered)
+                DragElement.instance.CheckMatching(hit.collider);
+            if (DragElement.matched)
+            {
+                DragElement.instance.Swap(hit.collider);
+                DragElement.matched = false;
+            }
+        }
     }
     
 
@@ -98,6 +111,7 @@ public class BoardManager : MonoBehaviour
             setMouseImage = false;
         }
     }
+    
 
     public void PositionCheck(Vector3 pos)
     {
@@ -108,21 +122,37 @@ public class BoardManager : MonoBehaviour
         {
             x = Math.Abs(pos.x - element[i].transform.position.x);
             y = Math.Abs(pos.y - element[i].transform.position.y);
-            if (x <= 74f && y <= 71.5f && !setMouseImage && element[i].active)
+            float closestX = element[i].GetComponent<BoxCollider2D>().size.x / 2;
+            float closestY = element[i].GetComponent<BoxCollider2D>().size.y / 2;
+            if (x <= closestX && y <= closestY && !setMouseImage && element[i].active)
             {
-                int index = element[i].id;
-                DragElement.instance.dragElement.transform.position = pos;
-                DragElement.instance.dragElement.GetComponent<Image>().sprite = imageElements[index];
-                DragElement.instance.dragElement.GetComponent<Element>().id = index;
-                DragElement.instance.dragElement.GetComponent<Element>().active = true;
-                DragElement.instance.dragElement.GetComponent<Element>().cord = element[i].cord;
-                DragElement.instance.dragElement.SetActive(true);
-                element[i].active = false;
-                element[i].GetComponent<Image>().enabled = false;
+                if (element[i].id < 4)
+                {
+                    int index = element[i].id;
+                    DragElement.instance.dragElement.transform.position = pos;
+                    DragElement.instance.dragElement.GetComponent<Image>().sprite = imageElements[index];
+                    DragElement.instance.dragElement.GetComponent<Element>().id = index;
+                    DragElement.instance.dragElement.GetComponent<Element>().active = true;
+                    DragElement.instance.dragElement.GetComponent<Element>().cord = element[i].cord;
+                    DragElement.instance.dragElement.SetActive(true);
+                    element[i].active = false;
+                    element[i].GetComponent<Image>().enabled = false;
+                }
+                else if (element[i].id >= 4)
+                {
+                    int index = element[i].id;
+                    DragElement.instance.dragElement.transform.position = pos;
+                    DragElement.instance.dragElement.GetComponent<Image>().sprite = spriteElements[index - 4];
+                    DragElement.instance.dragElement.GetComponent<Element>().id = index;
+                    DragElement.instance.dragElement.GetComponent<Element>().active = true;
+                    DragElement.instance.dragElement.GetComponent<Element>().cord = element[i].cord;
+                    DragElement.instance.dragElement.SetActive(true);
+                    element[i].active = false;
+                    element[i].GetComponent<Image>().enabled = false;
+                }
             }
         }
     }
-
     public void SetMatrix()
     {
         int k = 0;
