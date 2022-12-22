@@ -37,6 +37,7 @@ public class BoardManager : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             RaycastHit2D hit = Physics2D.Raycast(Input.mousePosition, Vector2.one, 10f);
+            SetMatrix();
             if(DragElement.entered)
                 DragElement.instance.CheckMatching(hit.collider);
             if (DragElement.matched)

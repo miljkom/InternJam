@@ -33,7 +33,7 @@ public class DragElement : MonoBehaviour
             col.gameObject.GetComponent<Element>().active)
         {
             Debug.Log("USAP");
-            SetBoolMatrix();
+            
             entered = true;
         }
         else
@@ -41,6 +41,7 @@ public class DragElement : MonoBehaviour
     }
     public void CheckMatching(Collider2D col)
     {
+        SetBoolMatrix();
         int ROW = boolBoard.GetLength(0);
         int COL = boolBoard.GetLength(1);
         DFS(boolBoard, (int)col.gameObject.GetComponent<Element>().cord.x,
