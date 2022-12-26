@@ -368,7 +368,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e4c39f5ec1b66124cb17a3394330bdbd, type: 3}
   positionToGo: {fileID: 1001166945}
   camera: {fileID: 1289868135}
-  settingsPrefab: {fileID: 713981950263212206, guid: 11c9c88c1186a0b44bf2f0c3fac1ac4c, type: 3}
+  settingsPrefab: {fileID: 7469046466573856170, guid: 4f096bb973783f64c97de397b1faf134, type: 3}
   parentPopup: {fileID: 1732141037}
 --- !u!1 &138790926
 GameObject:
@@ -575,8 +575,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cord: {x: 0, y: 0}
-  id: 10
   active: 0
+  id: 10
 --- !u!61 &144089800
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5119,6 +5119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f6b44f26e5b8c54ba0be5ab79853389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settings: {fileID: 0}
 --- !u!114 &2073266244
 MonoBehaviour:
   m_ObjectHideFlags: 0

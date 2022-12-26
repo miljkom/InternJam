@@ -58,7 +58,7 @@ public class PixelBoard : MonoBehaviour
         matrix[26].isImmune = value;
         matrix[27].isImmune = value;
         matrix[28].isImmune = value;
-        Debug.Log("sad su unistivi");
+        
         if (!value) centralBlockImmunityDisabled = true;
     }
 

@@ -3,7 +3,6 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEngine.Rendering.DebugUI;
 
 public class MiniGameManager : MonoBehaviour
 {
@@ -32,6 +31,7 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] Timer timer;
     [SerializeField] GameObject losePopupPrefab;
     private int progress = 0;
+    public static int scoreCounterMG3;
 
     public void SwapSprite(GameObject go, Sprite sprite)
     {
@@ -92,6 +92,7 @@ public class MiniGameManager : MonoBehaviour
 
         //Instantiate(levelWon.transform, canvas.transform, false);   
         levelWon.SetActive(true);
+        scoreCounterMG3++;
         timer.timerSlider.value += 30;
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene("Scenes/SceneStart", LoadSceneMode.Single);
