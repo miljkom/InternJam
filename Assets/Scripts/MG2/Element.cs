@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Element : MonoBehaviour
 {
-    public Vector2 cord;
-    public int id;
-    public bool active;
+    public int x, y;
 
+    public int id;
+    
 }

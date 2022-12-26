@@ -37,6 +37,7 @@ public class ElementFly : MonoBehaviour
                 timeElapsed / 1f);
             timeElapsed += Time.deltaTime;
             yield return null;
+
         }
     }
 }
