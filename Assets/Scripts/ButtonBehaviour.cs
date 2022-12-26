@@ -10,12 +10,11 @@ using UnityEngine.UI;
 public class ButtonBehaviour : MonoBehaviour
 {
     public GameObject settings;
-
+	
     public void ButtonClose()
     {
         SceneManager.LoadScene("Scenes/SceneStart",LoadSceneMode.Single);
     }
-    
     public void ButtonRetry()
     {
         RandomElement.instance.Reset();
@@ -43,5 +42,10 @@ public class ButtonBehaviour : MonoBehaviour
     {
         settings = Instantiate(BoardManager.instance.settingsPrefab, Vector3.zero, Quaternion.identity, BoardManager.instance.parentPopup);
         settings.transform.localPosition = Vector2.zero;
+	}
+	public void ButtonMG3Retry()
+    {
+        SceneManager.LoadScene("Scenes/SceneMG3", LoadSceneMode.Single);
+
     }
 }
